@@ -3,13 +3,13 @@
 apt-get update -y
 apt-get -y install haproxy
 sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
-cat <<EOF >> /etc/haproxy/haproxy.cfg
+cat <<EOG >> /etc/haproxy/haproxy.cfg
 frontend http_front
     bind *:80
     default_backend http_back
 backend http_back
     balance roundrobin
-    server web-01 34.201.241.134 check
-    server web-02 54.91.209.195 check
-EOF
+    server web-01 34.201.241.134:80 check
+    server web-02 54.91.209.195:80 check
+EOG
 service haproxy restart
